@@ -2,6 +2,7 @@ package PicCollage.assignment.presentation;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.util.List;
 
 import PicCollage.assignment.model.Engine;
 import PicCollage.assignment.model.properties.Coordinate;
@@ -38,8 +39,15 @@ public class Presenter {
     public void start() {
         Coordinate firstClick = init();
 
-        engine.firstClick(firstClick);
+        List<Coordinate> minePositions = engine.firstClick(firstClick);
+
+        System.out.println("\nBoard: ");
         engine.showBoard();
+
+        System.out.println("\nMine Postions: ");
+        for (Coordinate position : minePositions) {
+            System.out.println("x: " + position.getRow() + ", y: " + position.getCol());
+        }
     }
 
     private int getInput() {
@@ -70,7 +78,7 @@ public class Presenter {
                 } while (input >= bound);
                 nextStep = true;
             } catch (InputMismatchException exception) {
-                System.out.println("Invalid input, try again: ");
+                System.out.print("Invalid input, try again: ");
                 scanner.next();
             }
         }
